@@ -42,7 +42,7 @@ When we build our application as a part of the lab, the resulting JAR file will 
 SonarQube does *static code analysis* and detects common code issues - including security issues - and provides a dashboard reporting its findings. 
 
 ==== Quay / Clair
-Red Hat Quay is a private container registry that stores, builds, and deploys container images. It analyzes your images for security vulnerabilities (using Clair), identifying potential issues that can help you mitigate security risks. The pipeline will send our application image to quay where it will be automatically scanned for security vulnerabilities by Clair.
+Red Hat Quay is a private *container registry* that stores, builds, and deploys container images. Clair *analyzes images stored in Quay for security vulnerabilities*. The pipeline will send our application image to Quay where it will be automatically scanned for security vulnerabilities by Clair.
 
 ==== OWASP Zed Attack Proxy (ZAP)
 _The OWASP Zed Attack Proxy (ZAP) is one of the world’s most popular free security tools and is actively maintained by hundreds of international volunteers. It can help you automatically find security vulnerabilities in your web applications while you are developing and testing your applications. Its also a great tool for experienced pentesters to use for manual security testing._
@@ -55,14 +55,10 @@ For the purposes of this lab, we will be examining a simple, all-in-one https://
 
 image:images/lab7-ecommerce-webapp.png[]
 
-=== Lab 7.1 Logging into the environment
+=== Lab 1: Logging into the environment
 
-. After following Lab 0 and choosing *TC9818 -AD - Implementing proactive security and compliance automation and DevSecOps* from the drop down, you will be presented with your user id and GUID.
-+
-image:images/gg-ad2.png[2000,2000]
-
-. Log in to each of the tools that we previously mentioned  with the credentials shown below. Replace *{GUID}* with your provided lab cluster GUID and replace *{USERID}* with your provided user id - e.g., *user1* . Both the lab cluster GUID and USERID can be found on the Lab Information page where you got your assigned GUID and USERID. (see previous step for more details)
-
+. Log in to each of the tools that we previously mentioned  with the credentials shown below. Your lab instructor will tell you the GUID of the cluster - when you see *{GUID}* in a URL, *replace that with the GUID provided*. Your instructor will also give you a user ID - when you see *{USERID}* as a login or in a URL, replace that with your provided user id - e.g., *user1*.
+ 
 * Red Hat OpenShift console - https://master.{GUID}.example.opentlc.com
 +
 *login:* {USERID}
@@ -112,7 +108,7 @@ image:images/lab7.2-sonarqube.png[]
 +
 image:images/lab7.2-quay.png[]
 
-=== Lab 7.3 Explore the pipeline stages
+=== Lab 2: Explore the pipeline stages
 
 
 The following sections describe each of the stages in the CI/CD pipeline that we will be running during this lab.
