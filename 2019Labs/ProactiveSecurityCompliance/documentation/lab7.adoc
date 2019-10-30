@@ -1,23 +1,21 @@
 == Implementing DevSecOps to Build and Automate Security into the Application in a Secure CI/CD Pipeline
-:toc:
+
 === The Goal
 
-The goal of this lab is to learn how to automate and build security into an application and build a [[https://en.wikipedia.org/wiki/Software_factory|secure software factory]] that combines several security tools (including SonarQube, OWASP Zed Attack Proxy (ZAP), Red Hat Quay, Clair and the Open Security Content Automation Protocol (OpenSCAP)) into a Continuous Integration / Continuous Delivery (CI/CD) pipeline (via Jenkins). We will also automatically detect security and compliance issues in a controlled way for automated security compliance at scale.
+The goal of this lab is to learn how to automate and build security into an application and build a link:https://en.wikipedia.org/wiki/Software_factory[secure software factory] that combines several security tools (including SonarQube, OWASP Zed Attack Proxy (ZAP), Red Hat Quay, Clair and the Open Security Content Automation Protocol (OpenSCAP)) into a Continuous Integration / Continuous Delivery (CI/CD) pipeline via Jenkins. We will also automatically detect security and compliance issues in a controlled way for automated security compliance at scale.
 
 
 === Introduction
 
-The benefits of DevOps and Continuous Integration / Continuous Delivery (CI/CD) have been demonstrated with great success over the years. Security was initially treated as a second class citizen in many cases - left until the end usually to much detriment. With the advent of DevSecOps, security is put front and center - it is addressed in terms of people, processes and technology. Security tools are integrated right into the build process and you could easily break the build if security requirements are not met with the security gates that you build into your CI/CD pipeline.
+The benefits of DevOps and Continuous Integration / Continuous Delivery (CI/CD) have been demonstrated with great success over the years. Security was initially treated as a second class citizen - left until the end of the SDLC. With the advent of DevSecOps, security is put front and center - it's addressed in terms of people, processes, _and_ technology. Security tools can be integrated right into the build process - you can even break the build with security gates if security requirements are not met.
 
-This lab exercise will focus on some of the technologies used to implement automated security compliance controls within a typical CI/CD application pipeline.
+This lab will focus on some of the technologies used to implement automated security compliance controls within a typical CI/CD application pipeline.
 
-
-A number of tools have been installed and pre-configured to support the DevSecOps pipeline. Most of these tools are running containerized within the Red Hat OpenShift cluster. Here is the pipeline we will be stepping through during our lab:
+The security tools we mentioned have already been installed and configured for the lab, containerized within the OpenShift cluster. Here is a general idea of the pipeline we'll be stepping through during our lab:
 
 image:images/lab7.3-pipeline.png[]
 
-The Ansible role that deploys this entire pipeline can be found link:https://github.com/redhat-cop/agnosticd/tree/development/ansible/roles/ocp4-workload-security-compliance-lab[here].
-This pipeline will checkout java web application source code from a git repository, build it, run automated tests, perform a static code analysis scan with SonarQube, send the produced artifact to Sonatype Nexus for storage, build a docker image containing our application, push it to quay for additional security scanning, perform OpenSCAP scans, deploy the application to OpenShift so that it can be scanned for web vulnerabilities by OWASP ZAP, then we have the opportunity to promote the application to other OpenShift projects if we are satisfied with the results. The following sections describe the tools we will be using in this pipeline lab.
+This pipeline will: checkout Java code from a git repository, build the artifact from that code, run automated tests, perform a static code analysis scan with SonarQube, send the artifact to Sonatype Nexus for storage, build a Docker image containing our application, push the image to Quay for image layer security scanning by Clair, perform OpenSCAP scans, deploy the application to OpenShift so that it can be scanned for web vulnerabilities by OWASP ZAP, and then pauses before promoting the application to other OpenShift projects to allow us to only promote if we are satisfied with the results. The following sections describe the tools we'll be using in more detail.
 
 
 ==== Gogs
