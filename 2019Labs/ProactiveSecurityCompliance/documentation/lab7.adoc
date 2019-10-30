@@ -19,31 +19,27 @@ This pipeline will: checkout Java code from a git repository, build the artifact
 
 
 ==== Gogs
-Gogs is the Go Git Service- a github-like git server written in the Go programming language.
+link:https://gogs.io/[Gogs] is the Go Git Service - a *Github-like git server* written in Go.
 
-_The goal of the Gogs open source project is to make the easiest, fastest, and most painless way of setting up a self-hosted Git service. With Go, this can be done with an independent binary distribution across ALL platforms that Go supports, including Linux, Mac OS X, Windows and ARM._
-
-Gogs is great ligtweight git server for use in lab environments such as this. Most enterprise projects will use more fully-featured git repositories such as GitHub Enterprise, Gitlab, Atlassian BitBucket, etc.
+Gogs is great ligtweight git server for use in lab environments such as this. Most enterprise projects would use more fully-featured git repositories such as GitHub Enterprise, Gitlab, Atlassian BitBucket, etc.
 
 ==== Jenkins
-Jenkins is an open-source continuous integration software tool written in the Java programming language for testing and reporting on isolated changes in a larger code base in real time. The software enables developers to find and solve defects in a code base rapidly and to automate testing of their builds.
+link:https://jenkins.io/[Jenkins] is a *CI/CD tool* written in Java primarily for *artifact build automation and deployment* - including automated testing. This fucntionality is typically implemented with pipelines.
 
-While there are other tools available for implementing CI/CD pipelines, jenkins is the most widely used. A containerized version is provided with OpenShift and integrates natively with it.
+While there are other tools available for CI/CD pipelines, Jenkins is the most widely used. A containerized version is provided with OpenShift and integrates natively with it.
 
 ==== Apache Maven
-Apache Maven is a software project management and comprehension tool. Based on the concept of a project object model (POM), Maven can manage a project's build, reporting and documentation from a central piece of information.
+link:https://en.m.wikipedia.org/wiki/Apache_Maven[Apache Maven] is a *project build and management* tool. Based on the concept of a project object model (POM), Maven can manage a project's build, reporting, and documentation from a central piece of information.
 
-Maven provides an opinionated framework defining a structure and layout for Java source code. By following this structure, a myriad of plugins can be used to simplify the build, documentation, testing and deployment of source code. The pipeline in this lab uses maven to build and package our source code as well as transmit the application to nexus (described below) and submit static code analysis requests to SonarQube (also described below).
+Maven provides an opinionated framework defining a structure and layout for Java source code. By following this structure, a myriad of plugins can be used to simplify the build, documentation, testing and deployment of source code. The pipeline in this lab uses maven to build and package our source code as well as transmit the application to Nexus (described below) and submit static code analysis requests to SonarQube (also described below).
 
 ==== Nexus
-Sonatype Nexus is a repository manager. It allows you to proxy, collect, and manage your dependencies so that you are not constantly juggling a collection of Java ARchives (JARs). It makes it easy to distribute your software. Internally, you configure your build to publish artifacts to Nexus and they then become available to other developers.
+link:https://www.sonatype.com/product-nexus-repository[Sonatype Nexus] is a *repository manager*. It allows you to proxy, collect, and manage your dependencies so that you are not constantly juggling a collection of Java ARchives (JARs).
 
 When we build our application as a part of the lab, the resulting JAR file will be stored within nexus.
 
 ==== SonarQube
-SonarQube is a static code analysis system that provides continuous inspection including the detection of common code issues, including in the areas of security.
-
-In this lab we will upload the source code to SonarQube, which will perform static code analysis and produce various metrics, such as unit test code coverage.
+SonarQube does *static code analysis* and detects common code issues - including security issues - and provides a dashboard reporting its findings. 
 
 ==== Quay / Clair
 Red Hat Quay is a private container registry that stores, builds, and deploys container images. It analyzes your images for security vulnerabilities (using Clair), identifying potential issues that can help you mitigate security risks. The pipeline will send our application image to quay where it will be automatically scanned for security vulnerabilities by Clair.
