@@ -1,11 +1,12 @@
-== Implementing DevSecOps to Build and Automate Security into the Application in a Secure CI/CD Pipeline
+= Implementing DevSecOps to Build and Automate Security into the Application in a Secure CI/CD Pipeline
+:toc:
 
-=== The Goal
+== The Goal
 
 The goal of this lab is to learn how to automate and build security into an application and build a link:https://en.wikipedia.org/wiki/Software_factory[secure software factory] that combines several security tools (including SonarQube, OWASP Zed Attack Proxy (ZAP), Red Hat Quay, Clair and the Open Security Content Automation Protocol (OpenSCAP)) into a Continuous Integration / Continuous Delivery (CI/CD) pipeline via Jenkins. We will also automatically detect security and compliance issues in a controlled way for automated security compliance at scale.
 
 
-=== Introduction
+== Introduction
 
 The benefits of DevOps and Continuous Integration / Continuous Delivery (CI/CD) have been demonstrated with great success over the years. Security was initially treated as a second class citizen - left until the end of the SDLC. With the advent of DevSecOps, security is put front and center - it's addressed in terms of people, processes, _and_ technology. Security tools can be integrated right into the build process - you can even break the build with security gates if security requirements are not met.
 
@@ -55,7 +56,7 @@ For the purposes of this lab, we will be examining a simple, all-in-one https://
 
 image:images/lab7-ecommerce-webapp.png[]
 
-=== Lab 1: Logging into the environment
+== Lab 1: Logging into the environment
 
 . Log in to each of the tools that we previously mentioned  with the credentials shown below. Your lab instructor will tell you the GUID of the cluster - when you see *{GUID}* in a URL, *replace that with the GUID provided*. Your instructor will also give you a user ID - when you see *{USERID}* as a login or in a URL, replace that with your provided user id - e.g., *user1*.
  
@@ -108,7 +109,7 @@ image:images/lab7.2-sonarqube.png[]
 +
 image:images/lab7.2-quay.png[]
 
-=== Lab 2: Explore the pipeline stages
+== Lab 2: Explore the pipeline stages
 
 
 The following sections describe each of the stages in the CI/CD pipeline that we will be running during this lab.
@@ -156,7 +157,7 @@ Configures the OpenShift production project (i.e., userid-prod)
 ==== Promote to Prod?
 Similar to the previous _Promote to Stage?_ step, requiring manual intervention before promoting the application image to an even higher level environment.
 
-=== Lab 3: Exercise an initial run through the pipeline
+== Lab 3: Exercise an initial run through the pipeline
 
 . Navigate back to the jenkins user interface https://jenkins-{USERID}.apps.{GUID}.example.opentlc.com
 +
@@ -247,11 +248,11 @@ image:images/lab7.4-quay-packages.png[]
 +
 . You can also view the deployed application at http://ecommerce-{USERID}.apps.{GUID}.example.opentlc.com/
 
-=== Lab 7.5 Update the base image and source code
+== Lab 4: Update the base image and source code
 
 An old base image was used to build the application, we will update the base image to use a newer version. This will reduce the number of vulnerabilities that are detected. We will also update the source code to remove the vulnerabilities detected by SonarQube.
 
-. Navigate to your source code repository in gogs http://gogs-ocp-workshop.apps.{GUID}.example.opentlc.com and login if you haven't already (userid / openshift)
+. Navigate to your source code repository in Gogs (at http://gogs-ocp-workshop.apps.{GUID}.example.opentlc.com) and login if you haven't already (userid / openshift)
 +
 . Click on the *SecurityDemos* repository under *My Repositories*
 +
@@ -286,7 +287,7 @@ image:images/lab7.5-gogs-delete-password.png[]
 +
 . Click the commit changes button
 +
-. Navigate back to jenkins and *abort* the current build, then navigate to the pipeline page
+. Head back to jenkins at https://jenkins-{USERID}.apps.{GUID}.example.opentlc.com/job/{USERID}/job/{USERID}-{USERID}-ecommerce-pipeline/ and *abort* the current build, then navigate to the pipeline page
 +
 image:images/lab7.5-jenkins-abort.png[]
 +
@@ -330,8 +331,4 @@ image:images/lab7.5-jenkins-promote-prod.png[]
 +
 http://ecommerce-{userid}-prod.apps.{GUID}.example.opentlc.com
 +
-. Time permitting, go back to your gogs repository, open up the Jenkinsfile and take a look at some of the pipeline implementation details.
-
-<<top>>
-
-link:README.adoc#table-of-contents[ Table of Contents ]
+. Time permitting, go back to your Gogs repository, open up the Jenkinsfile (at http://gogs-ocp-workshop.apps.{GUID}.example.opentlc.com/{USERID}/SecurityDemos/src/master/Jenkinsfile) and take a look at some of the pipeline implementation details.
