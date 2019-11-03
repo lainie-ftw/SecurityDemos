@@ -12,20 +12,19 @@ oc project ocp-workshop
 
 echo "*** Logged in. ***"
 
-oc delete all -l app=nexus
+oc delete all -l app=nexus --wait=true
 
-oc tag --source=docker sonatype/nexus3:latest ocp-workshop/nexus:latest
+oc tag --source=docker sonatype/nexus3:3.19.1 ocp-workshop/nexus:3.19.1
 oc label is nexus app=nexus
 
-oc new-app nexus:latest
+oc new-app nexus:3.19.1
 oc rollout status dc/nexus
 oc expose svc/nexus
 
 echo "*** Old Nexus deleted, new Nexus deployed. Waiting a minute before we try to get the pod so we can do Nexus setup... ***"
 sleep 5
 
-NEXUS_POD=$(oc get pod -l app=nexus -o name --field-selector status.phase=Running)
-ADMIN_PW=$(oc rsh "${NEXUS_POD}" cat nexus-data/admin.password)
+ADMIN_PW=$(oc rsh `oc get pod -l app=nexus -o name --field-selector status.phase=Running` cat nexus-data/admin.password)
 
 curl -X PUT http://nexus-ocp-workshop.apps."${CLUSTER_GUID}".example.opentlc.com/service/rest/beta/security/users/admin/change-password -u admin:"${ADMIN_PW}" -H 'accept: application/json' -H 'Content-Type: text/plain' -d 'admin123'
 
@@ -40,6 +39,4 @@ curl -X POST http://nexus-ocp-workshop.apps."${CLUSTER_GUID}".example.opentlc.co
 curl -X POST http://nexus-ocp-workshop.apps."${CLUSTER_GUID}".example.opentlc.com/service/rest/v1/script/anonymous/run -H 'accept: application/json' -H 'Content-Type: text/plain'
 
 echo "*** Anonymous read access configured for Nexus. ***"
-
-oc logout
-
+echo "*** Done! ***"
