@@ -101,11 +101,11 @@ no login necessary
 +
 image:images/lab7.2-sonarqube.png[]
 
-* Quay - http://quayecosystem-quay-quay-enterprise.apps.{GUID}.example.opentlc.com
+* Quay - https://quay.io/
 +
-**login:** admin
+**login:** devsecops2019 (you could also make or use your own quay.io account)
 +
-**password:** admin123
+**password:** devsecops2019
 +
 image:images/lab7.2-quay.png[]
 
@@ -134,7 +134,7 @@ The result of our build is the creation of a Java ARchive, or JAR file. We send 
 During this step, we use the *Dockerfile* provided, along with our source code, to construct a new Docker image. A *Dockerfile* contains the instructions for building a docker image. The Dockerfile we are using to deploy the ecommerce application takes a base, Red Hat provided OpenJDK 1.8 image (Open JDK is the Java Development Kit - the runtime required to execute a Java application) and superimposes our executable JAR file on top of it to form a new Docker image, capable of running our application.
 
 ==== Push Image to Quay
-In this stage we take the Docker image that we just built and push it into Red Hat Quay - our centralized image registry.  Once the image is pushed to a registry, it can be made available to interested parties and promoted to different clusters. Quay has also been configured with Clair - which will perform a vulnerability scan of any images pushed to Quay. The Clair report will become available shortly after the image has been pushed into Quay.
+In this stage we take the Docker image that we just built and push it into Quay.io, in an account we made for the workshop.  Once the image is pushed to a registry, it can be made available to interested parties and promoted to different clusters. Quay has also been configured with Clair - which will perform a vulnerability scan of any images pushed to Quay. The Clair report will become available shortly after the image has been pushed into Quay.
 
 ==== OpenSCAP Scans
 This will perform two OpenSCAP scans - a vulnerability scan and a Defense Information Systems Agency (DISA) Security Technical Implementation Guideline (STIG) compliance scan. Both reports will be collected by Jenkins and made available for viewing.
@@ -158,6 +158,9 @@ Configures the OpenShift production project (i.e., userid-prod)
 Similar to the previous _Promote to Stage?_ step, requiring manual intervention before promoting the application image to an even higher level environment.
 
 == Lab 3: Exercise an initial run through the pipeline
+. Go to Gogs at http://gogs-ocp-workshop.apps.{GUID}.example.opentlc.com/{USERID}/SecurityDemos/src/master/Jenkinsfile and log in with {USERID}/openshift.
+. This is the pipeline code! We're going to make a change to send the image to quay.io, so change the line with "skopeo" (line 54) to be:
+        sh 'skopeo --debug copy --src-creds="$(oc whoami)":"$(oc whoami -t)" --src-tls-verify=false' + " --dest-creds=devsecops2019:devsecops2019 docker://${JENKINS_INTERNAL_REGISTRY}/${JENKINS_GOGS_USER}/ecommerce:latest docker://quay.io/devsecops2019/ecommerce:${JENKINS_GOGS_USER} || true"
 
 . Navigate back to the jenkins user interface https://jenkins-{USERID}.apps.{GUID}.example.opentlc.com
 +
@@ -229,7 +232,7 @@ image:images/lab7.4-nexus-snapshots.png[]
 . Navigate the folder structure and verify your JAR file exists within it.
 +
 image:images/lab7.4-nexus-jar.png[]
-. Navigate to the quay url http://quayecosystem-quay-quay-enterprise.apps.{GUID}.example.opentlc.com, login as *admin* with the password *admin123* if you haven't already
+. Navigate to the quay url https://quay.io, login as *devsecops2019* with the password *devsecops2019* if you haven't already
 +
 . Navigate to the image tagged with your userid by clicking the *ecommerce* repository
 +
