@@ -43,7 +43,7 @@ When we build our application as a part of the lab, the resulting JAR file will 
 SonarQube does *static code analysis* and detects common code issues - including security issues - and provides a dashboard reporting its findings. 
 
 ==== Quay / Clair
-Red Hat Quay is a private *container registry* that stores, builds, and deploys container images. Clair *analyzes images stored in Quay for security vulnerabilities*. The pipeline will send our application image to Quay where it will be automatically scanned for security vulnerabilities by Clair.
+Red Hat Quay is a private *container registry* that stores, builds, and deploys container images. Clair *analyzes images stored in Quay for security vulnerabilities*. Quay can run within OpenShift, but for this workshop, we'll be using Quay.io which is an online version where anyone can make an account. The pipeline will send our application image to Quay.io, where it will be automatically scanned for security vulnerabilities by Clair.
 
 ==== OWASP Zed Attack Proxy (ZAP)
 _The OWASP Zed Attack Proxy (ZAP) is one of the world’s most popular free security tools and is actively maintained by hundreds of international volunteers. It can help you automatically find security vulnerabilities in your web applications while you are developing and testing your applications. Its also a great tool for experienced pentesters to use for manual security testing._
@@ -160,8 +160,9 @@ Similar to the previous _Promote to Stage?_ step, requiring manual intervention 
 == Lab 3: Exercise an initial run through the pipeline
 . Go to Gogs at http://gogs-ocp-workshop.apps.{GUID}.example.opentlc.com/{USERID}/SecurityDemos/src/master/Jenkinsfile and log in with {USERID}/openshift.
 . This is the pipeline code! We're going to make a change to send the image to quay.io, so change the line with "skopeo" (line 54) to be:
++        
         sh 'skopeo --debug copy --src-creds="$(oc whoami)":"$(oc whoami -t)" --src-tls-verify=false' + " --dest-creds=devsecops2019:devsecops2019 docker://${JENKINS_INTERNAL_REGISTRY}/${JENKINS_GOGS_USER}/ecommerce:latest docker://quay.io/devsecops2019/ecommerce:${JENKINS_GOGS_USER} || true"
-
++
 . Navigate back to the jenkins user interface https://jenkins-{USERID}.apps.{GUID}.example.opentlc.com
 +
 . Click the folder label with your user id (e.g., user1)
