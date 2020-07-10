@@ -451,5 +451,3 @@ http://ecommerce-{userid}-prod.apps.{GUID}.example.opentlc.com
 . Time permitting, go back to your gogs repository, open up the Jenkinsfile and take a look at some of the pipeline implementation details.
 
 <<top>>
-
-link:README.adoc#table-of-contents[ Table of Contents ]
