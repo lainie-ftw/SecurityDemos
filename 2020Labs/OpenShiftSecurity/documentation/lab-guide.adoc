@@ -25,9 +25,9 @@ image:images/lab7-ecommerce-webapp.png[]
 
 === Logging in to the tools
 
-. The login for each tool is listed below. If you see *{USERID}*, replace that with your assigned user ID (user1, user2, etc). 
+The login for each tool is listed below. If you see *{USERID}*, replace that with your assigned user ID (user1, user2, etc). 
 
-* OpenShift console - https://master.{GUID}.example.opentlc.com
+. OpenShift console - https://master.{GUID}.example.opentlc.com
 +
 *login:* {USERID}
 +
@@ -35,14 +35,14 @@ image:images/lab7-ecommerce-webapp.png[]
 +
 image:images/lab7.2-openshift.png[]
 +
-* Gogs - http://gogs-ocp-workshop.apps.{GUID}.example.opentlc.com
+. Gogs - http://gogs-ocp-workshop.apps.{GUID}.example.opentlc.com
 +
 *login:* {USERID}
 +
 *password:* openshift
 +
 image:images/lab7.2-gogs.png[]
-* Jenkins - https://jenkins-{USERID}.apps.{GUID}.example.opentlc.com
+. Jenkins - https://jenkins-{USERID}.apps.{GUID}.example.opentlc.com
 (Click on Log In with OpenShift)
 +
 **login:** {USERID}
@@ -57,18 +57,18 @@ The main Jenkins page will appear as below:
 +
 image:images/lab7.2-jenkins.png[]
 
-* Nexus - http://nexus-ocp-workshop.apps.{GUID}.example.opentlc.com
+. Nexus - http://nexus-ocp-workshop.apps.{GUID}.example.opentlc.com
 +
 no login necessary!
 +
 image:images/lab7.2-nexus.png[]
-* Sonarqube - http://sonarqube-ocp-workshop.apps.{GUID}.example.opentlc.com
+. Sonarqube - http://sonarqube-ocp-workshop.apps.{GUID}.example.opentlc.com
 +
 no login necessary!
 +
 image:images/lab7.2-sonarqube.png[]
 
-* Quay - http://quayecosystem-quay-quay-enterprise.apps.{GUID}.example.opentlc.com
+. Quay - http://quayecosystem-quay-quay-enterprise.apps.{GUID}.example.opentlc.com
 +
 **login:** admin
 +
@@ -275,9 +275,7 @@ image:images/lab7.4-jenkins-select-build.png[]
 +
 image:images/lab7.4-jenkins-output.png[]
 +
-. Once the build has completed successfully (and is prompting you to proceed or abort), click the *user#/user#-ecommerce-pipeline* link at the top of the display. We will inspect the security scan artifacts before allowing the pipeline to promote our code into the staging project. 
-
-*Do not press either of the Proceed or Abort links yet!*
+. Once the build has completed successfully (and is prompting you to proceed or abort), click the *user#/user#-ecommerce-pipeline* link at the top of the display. We will inspect the security scan artifacts before allowing the pipeline to promote our code into the staging project. *Do not press either of the Proceed or Abort links yet!*
 +
 image:images/lab7.4-jenkins-build-complete.png[]
 +
