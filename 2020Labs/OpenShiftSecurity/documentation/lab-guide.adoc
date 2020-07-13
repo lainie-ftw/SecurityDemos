@@ -11,7 +11,7 @@ _Image hardening pipeline_
 image:images/lab7.3-pipeline.png[]
 _Application CI/CD Pipeline_
 
-(Automation is amazing for security, including automated infrastructure creation and deployment. If you're curious about how this lab comes to be, you can find the Ansible role that deploys everything link:https://github.com/redhat-cop/agnosticd/tree/development/ansible/roles/ocp4-workload-security-compliance-lab[here].)
+(Automation is amazing for security, including automated infrastructure creation and deployment. If you're curious about how this lab comes to be, you can find the Ansible role that deploys everything link:https://github.com/redhat-cop/agnosticd/tree/development/ansible/roles/ocp4-workload-security-compliance-lab[here,window=_blank].)
 
 The "image hardening" pipeline scans and creates a foundational block, or "golden image" that developers would use to build their applications on top of (in this case, it's Java). A link:https://catalog.redhat.com/software/containers/detail/5c3592dcd70cc534b3a37814?container-tabs=overview[Universal Base Image (UBI)] is used as the...well, the foundation of the foundation. Compliance and vulnerability scans are performed, and if the compliance percentage is less than 80% or if one or more vulnerabilities are found, the pipeline will fail. The application pipeline is then triggered, using this newly built and vetted base image.
 
