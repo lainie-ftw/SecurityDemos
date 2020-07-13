@@ -13,13 +13,13 @@ _Application CI/CD Pipeline_
 
 (Automation is amazing for security, including automated infrastructure creation and deployment. If you're curious about how this lab comes to be, you can find the Ansible role that deploys everything link:https://github.com/redhat-cop/agnosticd/tree/development/ansible/roles/ocp4-workload-security-compliance-lab[here].)
 
-The "image hardening" pipeline scans and creates a foundational block, or "golden image" that developers would use to build their applications on top of (in this case, it's Java). A link:https://catalog.redhat.com/software/containers/detail/5c3592dcd70cc534b3a37814?container-tabs=overview[Universal Base Image (UBI)] is used as the...well, the foundation of the foundation. Compliance and vulnerability scans are performed, and if the compliance percentage is less than 80% or if or more vulnerabilities are found, the pipeline will fail. !! The application pipeline is then triggered, using this newly built and vetted base image. !!
+The "image hardening" pipeline scans and creates a foundational block, or "golden image" that developers would use to build their applications on top of (in this case, it's Java). A link:https://catalog.redhat.com/software/containers/detail/5c3592dcd70cc534b3a37814?container-tabs=overview[Universal Base Image (UBI)] is used as the...well, the foundation of the foundation. Compliance and vulnerability scans are performed, and if the compliance percentage is less than 80% or if one or more vulnerabilities are found, the pipeline will fail. The application pipeline is then triggered, using this newly built and vetted base image.
 
 The application CI/CD pipeline takes this golden image and creates a running application by combining it with the source code for that application. We've talked about the security scanning done in this pipeline, and the diagram above also describes it.
 
 === So...what code are we running??
 
-In this workshop, we'll build a https://spring.io/projects/spring-boot[spring boot] application that mimcs an online store. The code for the application will be in the workshop's Gogs repository, but since that repository will go away when our lab environment does, you can also find it https://github.com/RedHatDemos/SecurityDemos/tree/master/2020Labs/OpenShiftSecurity/spring-boot-angular-ecommerce[here].
+In this workshop, we'll build a https://spring.io/projects/spring-boot[spring boot] application that mimics an online store. The code for the application will be in the workshop's Gogs repository, but since that repository will go away when our lab environment does, you can also find it https://github.com/RedHatDemos/SecurityDemos/tree/master/2020Labs/OpenShiftSecurity/spring-boot-angular-ecommerce[here].
 
 image:images/lab7-ecommerce-webapp.png[]
 
@@ -249,6 +249,7 @@ Configures the OpenShift production project (i.e., userX-prod)
 Similar to the previous _Promote to Stage?_ step, waits for manual intervention before promoting the application image to an even higher level environment. You are, again, the authorized person, but obviously in the real world this would be someone with "deploy to Production" authority.
 
 === Time to run the application CI/CD pipeline! 
+The Golden Image pipeline will have triggered a run of the CI/CD pipeline when it completed successfully. You can either re-run the pipeline or skip to the results part based on that triggered run.
 
 . Navigate back to the Jenkins user interface https://jenkins-{USERID}.apps.{GUID}.example.opentlc.com
 +
