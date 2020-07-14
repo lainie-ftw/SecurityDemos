@@ -31,7 +31,7 @@ The login for each tool is listed below. If you see *{USERID}*, replace that wit
 +
 *login:* {USERID}
 +
-*password:* r3dh4t1!
+*password:* openshift
 +
 image:images/lab7.2-openshift.png[]
 +
